@@ -35,6 +35,8 @@ def register():
     if form.validate_on_submit():
         flash('Start Web Scraping for Amtrak!!!', 'success')
         print(form.departure)
+        print(form.depart_id)
+        print("I am John")
         return redirect(url_for('home'))
     return render_template('web_scraping.html', title='Register', form=form)
 
