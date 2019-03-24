@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm, LoginForm
+from flask_sqlalchemy import SQLAlchemy
 
 import time
 from selenium import webdriver
@@ -8,15 +9,28 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import Select
 from fun import se
 
-global departure
-global depart_id
-global destination
-global dest_id
-global date123
-global quantity
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+        global departure
+        global depart_id
+        global destination
+        global dest_id
+        global date123
+        global quantity
+    id = db.Column(db.Integer, primary_key=True)
+    departure = db.Column(db.String(120), unique=True, nullable=False, default='Washington, DC')
+    depart_id = db.Column(db.String(120), unique=True, nullable=False, default='WAS')
+    image_fi = db.Column(db.String(20), nullable=False, default='default.jpg')
+    password = db.Column(db.String(60), nullable=False)
+    posts = db.relationship('Post', backref='author', lazy=True)
+    
+    #Dunder method & Magic method
+    def __repr__(self):
+        return "User('{self.depart_id}')"
 
 posts = [
     {
@@ -47,6 +61,12 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash('Start Web Scraping for Amtrak!!!', 'success')
+        global` departure
+        global depart_id
+        global destination
+        global dest_id
+        global date123
+        global quantity
         departure = form.departure.data
         depart_id = form.depart_id.data
         destination = form.destination.data
@@ -70,8 +90,6 @@ def login():
 #============================================
 class buy_ticket():
     def __init__(self, departure, depart_id, destination, dest_id, date, quantity, email, password):
-
-
         driver.get("https://www.amtrak.com/home")
         self.departure = departure
         self.depart_id = depart_id
@@ -120,6 +138,7 @@ class buy_ticket():
 if __name__ == '__main__':
     app.run(debug=True)
     begin = time.time()
+    print(begin)
     print(departure)
     #driver = webdriver.Firefox()
     driver = webdriver.Chrome()
