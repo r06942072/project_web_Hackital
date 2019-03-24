@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm, LoginForm
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -33,6 +34,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash('Start Web Scraping for Amtrak!!!', 'success')
+        print(form.departure)
         return redirect(url_for('home'))
     return render_template('web_scraping.html', title='Register', form=form)
 

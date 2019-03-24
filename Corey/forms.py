@@ -4,18 +4,12 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class RegistrationForm(FlaskForm):
     #departure, depart_id, destination, dest_id, date, quantity
-    departure = StringField('Departure (Washington, DC)',
-                           validators=[DataRequired()])
-    depart_id = StringField('Depart ID (WAS)',
-                        validators=[DataRequired()])
-    destination = StringField('Destination (Boston, MA)',
-                        validators=[DataRequired()])
-    dest_id = StringField('Dest ID (BOS)',
-                        validators=[DataRequired()])
-    date123 = StringField('Departure Date (03/28/2019)',
-                        validators=[DataRequired()])
-    quantity = StringField('How many passengers? (2)',
-                        validators=[DataRequired()])
+    departure = StringField('Departure (Washington, DC)')
+    depart_id = StringField('Depart ID (WAS)')
+    destination = StringField('Destination (Boston, MA)')
+    dest_id = StringField('Dest ID (BOS)')
+    date123 = StringField('Departure Date (03/28/2019)')
+    quantity = StringField('How many passengers? (2)')
     submit = SubmitField('Start Web Scraping!!!')
 
 class LoginForm(FlaskForm):
