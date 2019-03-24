@@ -1,4 +1,4 @@
-# pro_web_flask
+# Hackathon Hackital
 
-export FLASK_APP=index.py  
-flask run  
+A flask-based webapp and web scraping technique using selenium python package  
+
